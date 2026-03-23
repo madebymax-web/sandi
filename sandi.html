@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandi — San Diego</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:wght@300;400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sand:#F5F0E8;
+  --ocean:#1C3A4A;
+  --salt:#E8E2D6;
+  --dusk:#C4956A;
+  --chalk:#FAF8F4;
+  --kelp:#2C4A3E;
+  --fog:#9A9488;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--chalk);
+  color:var(--ocean);
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 3rem;
+  mix-blend-mode:multiply;
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;letter-spacing:0.08em;
+  color:var(--ocean);font-style:italic;
+  text-decoration:none;
+}
+.nav-links{display:flex;gap:2.5rem;}
+.nav-links a{
+  font-family:'DM Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--ocean);text-decoration:none;opacity:0.7;
+  transition:opacity 0.2s;
+}
+.nav-links a:hover{opacity:1}
+
+/* HERO */
+.hero{
+  height:100vh;min-height:700px;
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+.hero-left{
+  background:var(--ocean);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:4rem;padding-top:8rem;
+  position:relative;overflow:hidden;
+}
+.hero-texture{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(196,149,106,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(44,74,62,0.3) 0%, transparent 50%);
+}
+.hero-eyebrow{
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--dusk);margin-bottom:1.5rem;position:relative;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.5rem,6vw,5.5rem);
+  line-height:1.05;font-weight:400;
+  color:var(--sand);position:relative;
+}
+.hero-title em{font-style:italic;color:var(--dusk);}
+.hero-sub{
+  margin-top:2rem;
+  font-size:0.9rem;line-height:1.8;letter-spacing:0.02em;
+  color:rgba(245,240,232,0.6);max-width:340px;position:relative;
+}
+.hero-cta{
+  margin-top:3rem;display:flex;gap:1rem;align-items:center;
+  position:relative;
+}
+.btn-primary{
+  background:var(--dusk);color:var(--chalk);
+  font-family:'DM Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  padding:1rem 2rem;border:none;cursor:pointer;
+  text-decoration:none;display:inline-block;
+  transition:background 0.2s;
+}
+.btn-primary:hover{background:#B8844F;}
+.btn-ghost{
+  font-family:'DM Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--sand);opacity:0.6;cursor:pointer;
+  background:none;border:none;padding:1rem 0;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  text-decoration:none;
+  transition:opacity 0.2s;
+}
+.btn-ghost:hover{opacity:1}
+.hero-scroll-line{
+  position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);
+  width:1px;height:60px;background:var(--sand);opacity:0.2;
+}
+.hero-right{
+  background:var(--sand);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-img-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(160deg, #D4C9B5 0%, #C2B39E 40%, #A89880 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1rem;
+}
+.placeholder-tag{
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(28,58,74,0.4);
+}
+.hero-collection-tag{
+  position:absolute;bottom:2.5rem;right:2.5rem;
+  background:var(--ocean);color:var(--sand);
+  font-family:'DM Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.5rem 1rem;
+}
+
+/* MARQUEE STRIP */
+.strip{
+  background:var(--ocean);
+  padding:1rem 0;
+  overflow:hidden;
+  display:flex;
+}
+.strip-inner{
+  display:flex;gap:4rem;white-space:nowrap;
+  animation:marquee 20s linear infinite;
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(245,240,232,0.5);
+}
+.strip-dot{color:var(--dusk);}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* EDITORIAL */
+.editorial{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:80vh;
+}
+.ed-left{
+  padding:6rem 4rem;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--salt);
+}
+.section-number{
+  font-family:'DM Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.2em;color:var(--fog);margin-bottom:3rem;
+}
+.ed-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,4vw,3.8rem);
+  line-height:1.1;font-weight:400;
+}
+.ed-headline em{font-style:italic;color:var(--dusk);}
+.ed-body{
+  margin-top:2rem;font-size:0.9rem;line-height:1.9;
+  color:var(--fog);max-width:420px;letter-spacing:0.01em;
+}
+.ed-link{
+  margin-top:2.5rem;
+  font-family:'DM Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--ocean);text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.75rem;
+  border-bottom:1px solid var(--ocean);padding-bottom:0.25rem;
+  transition:color 0.2s,border-color 0.2s;
+}
+.ed-link:hover{color:var(--dusk);border-color:var(--dusk);}
+.ed-right{
+  display:grid;grid-template-rows:1fr 1fr;
+}
+.ed-img{
+  position:relative;overflow:hidden;
+}
+.ed-img-fill{
+  width:100%;height:100%;min-height:250px;
+}
+.img-a{background:linear-gradient(135deg,#B8A898 0%,#8C7A68 100%);}
+.img-b{background:linear-gradient(135deg,#7A9E8E 0%,#4A7060 100%);border-top:1px solid var(--salt);}
+.img-label{
+  position:absolute;bottom:1.5rem;left:1.5rem;
+  font-family:'DM Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(245,240,232,0.7);
+}
+
+/* PRODUCTS */
+.products{padding:6rem 3rem;background:var(--chalk);}
+.section-header{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:4rem;border-bottom:1px solid var(--salt);padding-bottom:1.5rem;
+}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:400;
+}
+.section-title em{font-style:italic;}
+.section-meta{
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.15em;text-transform:uppercase;color:var(--fog);
+}
+.product-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--salt);
+}
+.product-card{
+  background:var(--chalk);padding:2.5rem 2rem;
+  cursor:pointer;transition:background 0.2s;
+  position:relative;
+}
+.product-card:hover{background:var(--sand);}
+.product-card:hover .product-cta{opacity:1;}
+.product-img{
+  width:100%;aspect-ratio:3/4;
+  margin-bottom:1.5rem;position:relative;overflow:hidden;
+}
+.p-img-fill{width:100%;height:100%;}
+.p-img-1{background:linear-gradient(170deg,#C4B5A0 0%,#A09080 100%);}
+.p-img-2{background:linear-gradient(170deg,#8EAAB8 0%,#5E8090 100%);}
+.p-img-3{background:linear-gradient(170deg,#B8A880 0%,#8C8460 100%);}
+.product-tag{
+  font-family:'DM Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--fog);margin-bottom:0.5rem;
+}
+.product-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:400;
+  margin-bottom:0.25rem;
+}
+.product-price{
+  font-family:'DM Mono',monospace;font-size:0.75rem;
+  letter-spacing:0.05em;color:var(--dusk);
+}
+.product-cta{
+  position:absolute;top:2rem;right:2rem;
+  font-family:'DM Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  background:var(--ocean);color:var(--sand);
+  padding:0.4rem 0.8rem;opacity:0;
+  transition:opacity 0.2s;
+}
+
+/* MANIFESTO */
+.manifesto{
+  background:var(--ocean);
+  padding:8rem 4rem;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;position:relative;overflow:hidden;
+}
+.manifesto::before{
+  content:'';position:absolute;
+  top:-200px;left:50%;transform:translateX(-50%);
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(196,149,106,0.08) 0%,transparent 70%);
+}
+.manifesto-kicker{
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--dusk);margin-bottom:2.5rem;
+}
+.manifesto-text{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3.5vw,3rem);
+  line-height:1.4;font-weight:400;
+  color:var(--sand);max-width:780px;
+  position:relative;
+}
+.manifesto-text em{font-style:italic;color:var(--dusk);}
+.manifesto-sig{
+  margin-top:3rem;
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(245,240,232,0.4);
+}
+
+/* FOOTER */
+footer{
+  background:var(--sand);
+  padding:4rem 3rem 2rem;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;
+  border-top:1px solid var(--salt);
+}
+.footer-brand{
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem;font-style:italic;
+  color:var(--ocean);margin-bottom:0.75rem;
+}
+.footer-tagline{
+  font-size:0.8rem;color:var(--fog);line-height:1.7;max-width:240px;
+}
+.footer-col-title{
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--ocean);margin-bottom:1rem;
+}
+.footer-links{display:flex;flex-direction:column;gap:0.6rem;}
+.footer-links a{
+  font-size:0.85rem;color:var(--fog);text-decoration:none;
+  transition:color 0.2s;
+}
+.footer-links a:hover{color:var(--ocean);}
+.footer-bottom{
+  grid-column:1/-1;
+  border-top:1px solid var(--salt);
+  padding-top:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-copy{
+  font-family:'DM Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.1em;color:var(--fog);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{animation:fadeUp 0.8s ease both 0.2s}
+.hero-title{animation:fadeUp 0.8s ease both 0.35s}
+.hero-sub{animation:fadeUp 0.8s ease both 0.5s}
+.hero-cta{animation:fadeUp 0.8s ease both 0.65s}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:1.25rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;height:auto;}
+  .hero-left{padding:7rem 1.5rem 3rem;min-height:100vh;}
+  .hero-right{display:none;}
+  .editorial{grid-template-columns:1fr;}
+  .ed-left{padding:4rem 1.5rem;}
+  .ed-right{grid-template-rows:280px 280px;}
+  .product-grid{grid-template-columns:1fr;}
+  footer{grid-template-columns:1fr;}
+  .manifesto{padding:5rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Sandi</a>
+  <div class="nav-links">
+    <a href="#">Shop</a>
+    <a href="#">About</a>
+    <a href="#">Stockists</a>
+    <a href="#">Journal</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-texture"></div>
+    <div class="hero-eyebrow">— Spring Collection · 2026</div>
+    <h1 class="hero-title">Made for<br>where you <em>actually</em><br>live.</h1>
+    <p class="hero-sub">Quality clothing for people who know the difference between a tourist and someone who belongs here.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn-primary">Shop the Collection</a>
+      <a href="#" class="btn-ghost">Our Story →</a>
+    </div>
+    <div class="hero-scroll-line"></div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-placeholder">
+      <svg width="64" height="64" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.25">
+        <rect x="10" y="20" width="60" height="50" rx="2" stroke="#1C3A4A" stroke-width="1.5" fill="none"/>
+        <path d="M10 45 L28 32 L42 42 L56 28 L70 40" stroke="#1C3A4A" stroke-width="1.5" fill="none"/>
+        <circle cx="55" cy="30" r="6" stroke="#1C3A4A" stroke-width="1.5" fill="none"/>
+      </svg>
+      <span class="placeholder-tag">Hero Campaign Image</span>
+    </div>
+    <div class="hero-collection-tag">SS '26</div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <span>San Diego</span><span class="strip-dot">·</span>
+    <span>Ocean Beach</span><span class="strip-dot">·</span>
+    <span>North County</span><span class="strip-dot">·</span>
+    <span>La Jolla</span><span class="strip-dot">·</span>
+    <span>Encinitas</span><span class="strip-dot">·</span>
+    <span>Barrio Logan</span><span class="strip-dot">·</span>
+    <span>Mission Hills</span><span class="strip-dot">·</span>
+    <span>Solana Beach</span><span class="strip-dot">·</span>
+    <span>San Diego</span><span class="strip-dot">·</span>
+    <span>Ocean Beach</span><span class="strip-dot">·</span>
+    <span>North County</span><span class="strip-dot">·</span>
+    <span>La Jolla</span><span class="strip-dot">·</span>
+    <span>Encinitas</span><span class="strip-dot">·</span>
+    <span>Barrio Logan</span><span class="strip-dot">·</span>
+    <span>Mission Hills</span><span class="strip-dot">·</span>
+    <span>Solana Beach</span><span class="strip-dot">·</span>
+  </div>
+</div>
+
+<!-- EDITORIAL -->
+<section class="editorial">
+  <div class="ed-left">
+    <div class="section-number">01 / Philosophy</div>
+    <h2 class="ed-headline">Not a souvenir.<br>A <em>staple.</em></h2>
+    <p class="ed-body">We started Sandi because we were tired of the choice between a $12 boardwalk tee and something you have to explain to your friends. There's a third thing — clothing that actually fits how we live here. Built to last, styled without a logo screaming where you bought it.</p>
+    <a href="#" class="ed-link">Read the full story →</a>
+  </div>
+  <div class="ed-right">
+    <div class="ed-img">
+      <div class="ed-img-fill img-a"></div>
+      <div class="img-label">Lookbook · Spring '26</div>
+    </div>
+    <div class="ed-img">
+      <div class="ed-img-fill img-b"></div>
+      <div class="img-label">Materials sourced responsibly</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <div class="section-header">
+    <h2 class="section-title">New <em>arrivals</em></h2>
+    <span class="section-meta">Spring Collection · 12 pieces</span>
+  </div>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-img"><div class="p-img-fill p-img-1"></div></div>
+      <div class="product-tag">Heavyweight Tee</div>
+      <div class="product-name">Coastal Blank</div>
+      <div class="product-price">$58</div>
+      <div class="product-cta">Quick Add</div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><div class="p-img-fill p-img-2"></div></div>
+      <div class="product-tag">Crewneck</div>
+      <div class="product-name">Fog Morning</div>
+      <div class="product-price">$98</div>
+      <div class="product-cta">Quick Add</div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><div class="p-img-fill p-img-3"></div></div>
+      <div class="product-tag">5-Panel Cap</div>
+      <div class="product-name">Low Profile</div>
+      <div class="product-price">$42</div>
+      <div class="product-cta">Quick Add</div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-kicker">The Sandi Standard</div>
+  <p class="manifesto-text">"We make things for people who don't need to announce where they're from — because <em>how they move</em> already says it."</p>
+  <div class="manifesto-sig">— Sandi, San Diego CA</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Sandi</div>
+    <p class="footer-tagline">Quality clothing for the Southern California lifestyle. Not a tourist. Never was.</p>
+  </div>
+  <div>
+    <div class="footer-col-title">Shop</div>
+    <div class="footer-links">
+      <a href="#">New Arrivals</a>
+      <a href="#">Tops</a>
+      <a href="#">Bottoms</a>
+      <a href="#">Headwear</a>
+      <a href="#">Sale</a>
+    </div>
+  </div>
+  <div>
+    <div class="footer-col-title">Company</div>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">Stockists</a>
+      <a href="#">Journal</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Sandi. San Diego, CA.</span>
+    <span class="footer-copy">Instagram · Newsletter</span>
+  </div>
+</footer>
+
+</body>
+</html>
